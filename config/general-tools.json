@@ -1,5 +1,5 @@
 {
-  "name": "programming-tools",
+  "name": "general-tools",
   "axios": {
     "swapAgentAccessServer": {
       "timeout": 30000

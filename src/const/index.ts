@@ -1,1 +1,1 @@
-export const constant = { configName: 'programming-tools' };
+export const constant = { configName: 'general-tools' };
