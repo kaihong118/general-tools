@@ -10,7 +10,7 @@ import {
 } from '@wallet-manager/node-package-axios';
 import APIConfig from '../APIConfig';
 
-type AllowedEnv = 'testnet' | 'prod' | 'dev' | 'local';
+// type AllowedEnv = 'testnet' | 'prod' | 'dev' | 'local';
 
 export interface ServiceStartInfo {
   privateKey: string;
