@@ -10,7 +10,7 @@ const rl = readline.createInterface({
 
 // Step 1: Ask for the folder name
 rl.question(
-  'Enter the test folder name (e.g., test, abccWallet, cams): ',
+  'Enter the folder name (e.g., test, abccWallet, cams): ',
   (testFolder) => {
     if (!testFolder) {
       console.error('No folder name provided. Exiting...');
@@ -20,7 +20,7 @@ rl.question(
 
     // Step 2: Ask for the test file name
     rl.question(
-      'Enter the test file name (without extension, e.g., test_bignumber): ',
+      'Enter the file name (without extension, e.g. test_bignumber): ',
       (testFile) => {
         if (!testFile) {
           console.error('No test file name provided. Exiting...');
