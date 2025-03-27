@@ -9,6 +9,7 @@ node_modules
 dist
 **/logs/*
 .npmrc
+format
 
 # Logs
 logs
