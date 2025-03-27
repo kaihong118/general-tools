@@ -21,14 +21,10 @@ export default class PasswordHelper {
     privateKey?: BytesLike | ExternallyOwnedAccount | SigningKey,
     provider?: Provider
   ): ethers.Wallet {
-    let keyPair;
-
     if (privateKey) {
-      keyPair = new ethers.Wallet(privateKey, provider);
+      return new ethers.Wallet(privateKey, provider);
     } else {
-      keyPair = ethers.Wallet.createRandom();
+      return ethers.Wallet.createRandom();
     }
-
-    return keyPair;
   }
 }
