@@ -3,11 +3,15 @@
 .env.*
 !.env.local
 
+#json Diles
+.json
+
+#Sql Files
+.sql
+
 # Custom
 .DS_Store
 node_modules
 dist
 logs
 .npmrc
-format
-./src/helper/generate_sql.ts
