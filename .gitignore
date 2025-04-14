@@ -10,3 +10,4 @@ dist
 logs
 .npmrc
 format
+./src/helper/generate_sql.ts
