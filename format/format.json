@@ -5,7 +5,7 @@
   "url": "/distributor-agent/webapp/allocation-management/get-all?offset=0&limit=20&statuses%5B0%5D=1",
   "body": {},
   "res_json": {
-    "error": null,
+    "error": {},
     "result": {
       "count": 9,
       "rows": [
