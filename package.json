@@ -12,7 +12,8 @@
     "latest:util": "npm install @wallet-manager/node-package-util@latest",
     "latest:axios": "npm install @wallet-manager/node-package-axios@latest",
     "latest:server": "npm install @wallet-manager/node-package-server@latest",
-    "latest:db": "npm install @wallet-manager/node-package-db@latest"
+    "latest:db": "npm install @wallet-manager/node-package-db@latest",
+    "latest:kafka": "npm install @wallet-manager/node-package-kafka@latest"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
@@ -23,6 +24,7 @@
     "@ethersproject/abstract-signer": "^5.7.0",
     "@wallet-manager/node-package-axios": "^1.0.52",
     "@wallet-manager/node-package-db": "^1.0.38",
+    "@wallet-manager/node-package-kafka": "^1.1.2",
     "@wallet-manager/node-package-server": "^1.1.37",
     "@wallet-manager/node-package-util": "^1.7.19",
     "axios": "^1.7.2",
