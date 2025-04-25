@@ -1,7 +1,4 @@
-import { BytesLike, ethers } from 'ethers';
-import { ExternallyOwnedAccount } from '@ethersproject/abstract-signer';
-import { SigningKey } from 'ethers/lib/utils';
-import { Provider } from '@ethersproject/abstract-provider';
+import { ethers, Provider, SigningKey } from 'ethers';
 import generator from 'generate-password';
 
 export default class PasswordHelper {
@@ -15,16 +12,19 @@ export default class PasswordHelper {
 
   /**
    *
-   * @returns ethers.Wallet
+   * @returns  Return ethers.Wallet
    */
   public static generateKeyPair(
-    privateKey?: BytesLike | ExternallyOwnedAccount | SigningKey,
+    privateKey?: string | SigningKey,
     provider?: Provider
   ): ethers.Wallet {
+    let keyPair;
     if (privateKey) {
-      return new ethers.Wallet(privateKey, provider);
+      keyPair = new ethers.Wallet(privateKey, provider);
     } else {
-      return ethers.Wallet.createRandom();
+      keyPair = ethers.Wallet.createRandom();
     }
+
+    return keyPair;
   }
 }
