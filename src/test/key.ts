@@ -23,8 +23,9 @@ const logger = winston.createLogger({
 const keyPair = PasswordHelper.generateKeyPair(
   '04b4baeecc37708c87a5d74e43b908b1b6ae7de7c628cb2f25c560cc48f18c1a'
 );
-logger.info(`Public Key: ${keyPair.publicKey}`);
-logger.info(`Private Key: ${keyPair.privateKey}`);
+logger.info(`Public Key: ${keyPair.signingKey.publicKey}`);
+logger.info(`Compressed Public Key: ${keyPair.signingKey.compressedPublicKey}`);
+logger.info(`Private Key: ${keyPair.signingKey.compressedPublicKey}`);
 logger.info(`Address : ${keyPair.address}`);
 
 const headers = MessageHelper.createRequestHeader(
