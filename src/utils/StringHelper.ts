@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js';
+
 const characters =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 const numbers = '0123456789';
@@ -172,5 +174,63 @@ export default class StringHelper {
       splitedDecimalString[0] +
       splitedDecimalString[1].substring(0, carryNumber)
     );
+  }
+
+  /**
+   * This function is used to separate a string that is like below format to JSON
+   *
+   * Before: RegExr: AAA, test: A, B,CC, test2: 1, A, 22, test3: A, 111
+   *
+   * After: { RegExr: 'AAA', test: 'A, B,CC', test2: '1, A, 22', test3: 'A' }
+   * @param jsonString
+   * @returns JSON format
+   */
+
+  static FieldSeparator(jsonString: string) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const detailJSON: any = {};
+    const regex = /([0-9 A-z]+:[^:]*),/g;
+    let regexOut;
+
+    do {
+      //provide an additional ',' for separation
+      regexOut = regex.exec(jsonString + ',');
+      if (regexOut) {
+        if (regexOut[1].includes(':')) {
+          //regexOut[0] still have comma, using regexOut[1] to split instead
+          const dataWithKey = regexOut[1].split(':');
+          const key = dataWithKey[0].trim();
+          const data = dataWithKey[1].trim();
+          detailJSON[key] = data;
+        }
+      }
+    } while (regexOut);
+    return detailJSON;
+  }
+
+  /**
+   * Format Numeric String To Correct Decimal Places
+   * @param NumericString String that store a valid number
+   * @param decimalPosition where should put the decimal place (e.g. 2: 123 -> 1.23, -1: 123 -> 1230)
+   * @param errorThrow Optional, if true will throw error when input is not a number, else return empty string, default false
+   * @returns Formatted String
+   */
+  static FormatDecimalString(
+    NumericString: string,
+    decimalPosition: number
+  ): string {
+    const re = /^-?[\d.]+(?:e-?\d+)?$/;
+    const valid = re.test(NumericString);
+    if (!valid) {
+      return '';
+    }
+    let num = new BigNumber(NumericString);
+
+    if (decimalPosition < 0) {
+      num = num.multipliedBy(10 ** -decimalPosition);
+    } else {
+      num = num.dividedBy(10 ** decimalPosition);
+    }
+    return num.toFormat();
   }
 }
