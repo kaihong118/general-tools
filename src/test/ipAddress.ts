@@ -1,8 +1,35 @@
-import geoip from 'geoip-country';
+import { AxiosHelper } from '@wallet-manager/node-package-axios';
+import { API } from '@wallet-manager/node-package-server';
+import winston from 'winston';
 
-const ips = ['138.19.253.118'];
+export async function assignAxios() {
+  const logger = winston.createLogger({
+    level: 'info',
+    transports: [new winston.transports.Console()],
+  });
 
-for (const ip of ips) {
-  const result = geoip.lookup(ip);
-  console.log(result);
+  const ipAddressAxios = await AxiosHelper.createAxios(
+    {
+      baseURL: 'https://ipwho.is',
+      timeout: 30000,
+      sensitiveEndpointSetting: {},
+    },
+    logger
+  );
+
+  const replacer = {
+    ipAddress: '47.98.112.127',
+  };
+  let endpoint = '/:ipAddress';
+  for (const key of Object.keys(replacer)) {
+    endpoint = endpoint.replace(`:${key}`, encodeURIComponent(replacer[key]));
+  }
+
+  const result = await ipAddressAxios.get<API.ResponseBase>(endpoint);
+  logger.info(result.data);
 }
+
+export async function test() {
+  await assignAxios();
+}
+test();

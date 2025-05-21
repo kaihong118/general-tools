@@ -231,6 +231,10 @@ export default class StringHelper {
     } else {
       num = num.dividedBy(10 ** decimalPosition);
     }
-    return num.toFormat();
+    return num.toFormat({
+      groupSeparator: ',',
+      decimalSeparator: '.',
+      groupSize: 3,
+    });
   }
 }

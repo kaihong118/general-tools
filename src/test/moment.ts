@@ -4,8 +4,8 @@
 
 import moment from 'moment-timezone';
 
-console.log(moment(1745311712555).utcOffset(8).format('YYYY-MM-DD HH:mm:ss'));
+const dateTime = moment
+  .tz(1747196562 * 1000, 'Asia/Hong_Kong')
+  .format('YYYY-MM-DD HH:mm:ss (z)');
 
-// console.log(`${moment().utc()}\n`);
-// console.log(`${moment().utc(true)}\n`);
-// console.log(`${moment().tz('America/Los_Angeles')}\n`);
+console.log(dateTime);
