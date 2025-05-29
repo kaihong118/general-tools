@@ -16,3 +16,4 @@ dist
 logs
 .npmrc
 format
+excel
