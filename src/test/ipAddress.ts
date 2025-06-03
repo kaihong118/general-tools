@@ -18,7 +18,7 @@ export async function assignAxios() {
   );
 
   const replacer = {
-    ipAddress: '47.98.112.127',
+    ipAddress: '117.28.246.3',
   };
   let endpoint = '/:ipAddress';
   for (const key of Object.keys(replacer)) {
