@@ -7,6 +7,7 @@
     "test": "ts-node src/test/$npm_config_path.ts",
     "cams": "ts-node src/cams/$npm_config_path.ts",
     "abccWallet": "ts-node src/abccWallet/$npm_config_path.ts",
+    "userAuth": "node src/helper/userAuth.js",
     "task": "tsc -p .",
     "start:inspect": "nodemon --exec \"node --require ts-node/register --inspect=1234 index.ts\"",
     "latest:util": "npm install @wallet-manager/node-package-util@latest",

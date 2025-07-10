@@ -5,6 +5,7 @@
 
 #json Files
 .json
+exportFeatures.json
 
 #Sql Files
 .sql
