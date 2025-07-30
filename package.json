@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "General Programming Tools",
   "scripts": {
+    "sqlHelper": "ts-node src/sqlHelper/$npm_config_path.ts",
     "helper": "ts-node src/helper/$npm_config_path.ts",
     "test": "ts-node src/test/$npm_config_path.ts",
     "cams": "ts-node src/cams/$npm_config_path.ts",
