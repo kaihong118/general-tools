@@ -29,7 +29,7 @@
     "@wallet-manager/node-package-db": "^1.0.38",
     "@wallet-manager/node-package-kafka": "^1.1.2",
     "@wallet-manager/node-package-server": "^1.1.37",
-    "@wallet-manager/node-package-util": "^1.7.20",
+    "@wallet-manager/node-package-util": "^1.9.6",
     "axios": "^1.7.2",
     "bignumber.js": "^9.1.2",
     "csv": "^6.3.11",
