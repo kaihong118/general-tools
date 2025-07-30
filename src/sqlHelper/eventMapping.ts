@@ -1,4 +1,5 @@
 import fs from 'fs';
+import moment from 'moment';
 import readline from 'readline';
 
 const template = `
@@ -77,7 +78,9 @@ async function run() {
   outputSql += '\nCOMMIT;';
 
   fs.writeFileSync(
-    `/Users/lucas/Downloads/SQL/[pmp_access] Add new event mapping.sql`,
+    `/Users/lucas/Downloads/SQL/[pmp_access] Add new event mapping ${moment().format(
+      'YYYYMMDD'
+    )}.sql`,
     outputSql,
     'utf8'
   );
