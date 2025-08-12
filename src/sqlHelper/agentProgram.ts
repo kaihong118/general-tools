@@ -17,17 +17,18 @@ WHERE
 
 const data = [
   {
-    id: 163,
-    program_agent_id: 'PA-G001',
-    program_name: 'VQuick-G001-EXT-P11',
-    kyc_idv_method: 3,
-    question_type: 2,
-  },
-  {
-    id: 164,
-    program_agent_id: 'PA-G002',
-    program_name: 'VQuick-G002-EXT-P12',
-    kyc_idv_method: 3,
+    id: 128,
+    program_agent_id: 'PA-E001',
+    program_name: 'VGL-E001-PURPLEP141',
+    created_by: null,
+    created_date: '2025-04-02T08:17:03.106Z',
+    last_modified_by: null,
+    last_modified_date: '2025-06-30T01:59:07.529Z',
+    program_display_name: 'PURPLEP141',
+    program_currency: 'HKD',
+    credit_token_name: 'HKDM',
+    credit_currency: 'HKDM-ERC20',
+    kyc_idv_method: 1,
     question_type: 2,
   },
 ];
@@ -60,7 +61,14 @@ function askQuestion(question: string): Promise<string> {
 }
 
 async function run() {
-  const ticketNo = await askQuestion('Enter the ticket number: ');
+  let ticketNo = '00000';
+  const isDevOpsTicket = await askQuestion(
+    'Do you have a devOps Ticket Number? (Y/N)'
+  );
+
+  if (isDevOpsTicket === 'Y') {
+    ticketNo = await askQuestion('Enter the ticket number: ');
+  }
 
   let outputSql = 'BEGIN;\n';
 
