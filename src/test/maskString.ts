@@ -49,6 +49,7 @@ class StringMasker {
 function test() {
   console.log(StringMasker.mask('eu39+lucas@18.dev', MaskPosition.Start));
   console.log(StringMasker.mask('eu39+lucas@18.dev', MaskPosition.Second));
-  console.log(StringMasker.mask('Chan', MaskPosition.Second));
+  console.log(StringMasker.mask('Chanabcd', MaskPosition.Start));
+  console.log(StringMasker.mask('Chanabcd', MaskPosition.Second));
 }
 test();
