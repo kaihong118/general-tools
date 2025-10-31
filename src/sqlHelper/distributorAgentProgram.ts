@@ -1,36 +1,37 @@
-import { Master } from '@wallet-manager/pfh-pmp-node-def-types';
+import { SwapAgent } from '@wallet-manager/pfh-pmp-node-def-types';
 import fs from 'fs';
 import moment from 'moment';
 import readline from 'readline';
 
 const template = `
 -- :programName
-UPDATE swap_agent.agent_programs
+UPDATE swap_agent.distributor_agent_programs
 SET
-  kyc_idv_method = :kycMethod,
-  question_type = :questionType,
-  last_modified_date = now ()
+    last_modified_by = 'Data Patch',
+    last_modified_date = now (),
+    supported_platform = :supportedPlatform
 WHERE
-  id = ':id'
-  AND program_agent_id = ':programAgentId'
-  AND program_name = ':programName';
+    id = ':id'
+    AND program_agent_id = ':programAgentId'
+    AND distributor_agent_id = ':distributorAgentId'
+    AND program_name = ':programName';
 `;
 
 const data = [
   {
-    id: 154,
-    program_agent_id: 'PA-E004',
-    program_name: 'VTitan-E004-P421',
-    created_by: null,
-    created_date: '2025-07-04T11:16:22.629Z',
-    last_modified_by: null,
-    last_modified_date: '2025-07-25T11:22:05.137Z',
-    program_display_name: 'HKDM Titan Platinum',
-    program_currency: 'HKD',
-    credit_token_name: 'HKDM',
-    credit_currency: 'HKDM-ERC20',
-    kyc_idv_method: 1,
-    question_type: 2,
+    id: 170,
+    program_agent_id: 'PA-M001',
+    distributor_agent_id: 'DA-0002@PA-M001',
+    program_name: 'HKD_Consumer_P09',
+    created_by: 'op2@golden-leasing.com',
+    created_date: '2024-05-31T07:44:00.860Z',
+    last_modified_by: 'op2@golden-leasing.com',
+    last_modified_date: '2024-05-31T07:44:00.860Z',
+    status: 1,
+    rebate_mode: 2,
+    da_rebate_rate: 0.0,
+    customer_rebate_rate: 0.0,
+    supported_platform: 1,
   },
 ];
 
@@ -77,9 +78,10 @@ async function run() {
     const sql = generateSQL(template, {
       id: x.id,
       programAgentId: x.program_agent_id,
+      distributorAgentId: x.distributor_agent_id,
       programName: x.program_name,
-      kycMethod: Master.EnumIdvMethod.Skip,
-      questionType: Master.EnumQuestionType.Agent,
+      supportedPlatform:
+        SwapAgent.EnumDistributorAgentProgramSupportedPlatform.API,
     });
 
     outputSql += sql;
@@ -87,7 +89,7 @@ async function run() {
   outputSql += '\nCOMMIT;';
 
   fs.writeFileSync(
-    `/Users/lucas/Downloads/SQL/[swap_agent] Data patch to update idvMethod and questionType (${ticketNo}) ${moment().format(
+    `/Users/lucas/Downloads/SQL/[swap_agent] Data patch to update supportedPlatform (${ticketNo}) ${moment().format(
       'YYYYMMDD',
     )}.sql`,
     outputSql,
