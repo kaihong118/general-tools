@@ -1,11 +1,13 @@
+import { BigNumber } from 'bignumber.js';
+
 export default class NumberHelper {
   public static findDuplicatedNumber(
     numberArray: number[],
-    totalNumber: number
+    totalNumber: number,
   ) {
     const expectedSum = (totalNumber * (totalNumber + 1)) / 2;
     const actualSum = numberArray.reduce(
-      (sum, currentNumber) => sum + currentNumber
+      (sum, currentNumber) => sum + currentNumber,
     );
     return actualSum - expectedSum;
   }
@@ -33,14 +35,24 @@ export default class NumberHelper {
 
     return `${integerPart}.${decimalPart}`;
   }
+
+  /**
+   * Convert a decimal number to a non-decimal integer by multiplying by 10^decimals
+   * @param number - The decimal number to convert
+   * @param decimals - Number of decimal places
+   * @returns The non-decimal integer
+   */
+  static toNonDecimal(number: number | string, decimals: number): number {
+    return BigNumber(number).times(Math.pow(10, decimals)).toNumber();
+  }
+
+  /**
+   * Convert a non-decimal integer to a decimal number by dividing by 10^decimals
+   * @param number - The non-decimal integer to convert
+   * @param decimals - Number of decimal places
+   * @returns The decimal number
+   */
+  static toDecimal(number: number | string, decimals: number): number {
+    return BigNumber(number).dividedBy(Math.pow(10, decimals)).toNumber();
+  }
 }
-// const arrNum = Array.from({ length: 100 }, (_, i) => i + 1);
-// arrNum.push(20, 30);
-// console.log(findDuplicatedNumber(arrNum, 100));
-
-// function findDuplicatedNumber(arr: number[], totalNumber: number) {
-//   const expectedSum = (totalNumber * (totalNumber + 1)) / 2;
-//   const actualSum = arr.reduce((sum, currentNumber) => sum + currentNumber);
-
-//   return actualSum - expectedSum;
-// }

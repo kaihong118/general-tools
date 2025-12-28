@@ -2,7 +2,7 @@
     "compilerOptions": {
       "outDir": "dist",
       "rootDir": "./",
-      "target": "es2017",
+      "target": "es2023",
       "module": "commonjs",
       "inlineSourceMap": true,
       "inlineSources": true,
