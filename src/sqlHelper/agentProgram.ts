@@ -9,6 +9,7 @@ UPDATE swap_agent.agent_programs
 SET
   kyc_idv_method = :kycMethod,
   question_type = :questionType,
+  last_modified_by = :lastModifiedBy,
   last_modified_date = now ()
 WHERE
   id = ':id'
@@ -18,22 +19,23 @@ WHERE
 
 const data = [
   {
-    id: 154,
-    program_agent_id: 'PA-E004',
-    program_name: 'VTitan-E004-P421',
+    id: 25,
+    program_agent_id: 'PA-E005',
+    program_name: 'HKD_P58_DISTRIBUTION',
     created_by: null,
-    created_date: '2025-07-04T11:16:22.629Z',
+    created_date: '2024-06-14T04:01:50.680Z',
     last_modified_by: null,
-    last_modified_date: '2025-07-25T11:22:05.137Z',
-    program_display_name: 'HKDM Titan Platinum',
+    last_modified_date: '2025-12-22T07:25:49.973Z',
+    program_display_name: 'P58',
     program_currency: 'HKD',
     credit_token_name: 'HKDM',
     credit_currency: 'HKDM-ERC20',
     kyc_idv_method: 1,
     question_type: 2,
+    kyc_level: 1,
+    vip_level: 'abcc_card',
   },
 ];
-
 function generateSQL(
   template: string,
   params: Record<string, string | number>,
@@ -80,6 +82,7 @@ async function run() {
       programName: x.program_name,
       kycMethod: Master.EnumIdvMethod.Skip,
       questionType: Master.EnumQuestionType.Agent,
+      lastModifiedBy: 'Data Patch',
     });
 
     outputSql += sql;
