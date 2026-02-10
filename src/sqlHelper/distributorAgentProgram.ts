@@ -1,7 +1,7 @@
 import { SwapAgent } from '@wallet-manager/pfh-pmp-node-def-types';
 import fs from 'fs';
 import moment from 'moment';
-import readline from 'readline';
+import UtilHelper from './utilHelper';
 
 const template = `
 -- :programName
@@ -19,14 +19,14 @@ WHERE
 
 const data = [
   {
-    id: 170,
-    program_agent_id: 'PA-M001',
-    distributor_agent_id: 'DA-0002@PA-M001',
-    program_name: 'HKD_Consumer_P09',
-    created_by: 'op2@golden-leasing.com',
-    created_date: '2024-05-31T07:44:00.860Z',
-    last_modified_by: 'op2@golden-leasing.com',
-    last_modified_date: '2024-05-31T07:44:00.860Z',
+    id: 667,
+    program_agent_id: 'PA-E010',
+    distributor_agent_id: 'DA-0001@PA-E010',
+    program_name: 'VABCC-E010-BLACKP461',
+    created_by: 'e010d0001@golden-leasing.com',
+    created_date: '2025-10-09T07:53:07.436Z',
+    last_modified_by: 'e010d0001@golden-leasing.com',
+    last_modified_date: '2025-10-09T07:53:07.436Z',
     status: 1,
     rebate_mode: 2,
     da_rebate_rate: 0.0,
@@ -35,47 +35,20 @@ const data = [
   },
 ];
 
-function generateSQL(
-  template: string,
-  params: Record<string, string | number>,
-): string {
-  return template.replace(/:([a-zA-Z0-9_]+)/g, (_, key) => {
-    const val = params[key];
-    if (val === undefined) {
-      throw new Error(`Missing value for placeholder ":${key}"`);
-    }
-    return String(val);
-  });
-}
-
-function askQuestion(question: string): Promise<string> {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  return new Promise((resolve) => {
-    rl.question(question, (answer) => {
-      rl.close();
-      resolve(answer.trim());
-    });
-  });
-}
-
 async function run() {
   let ticketNo = '00000';
-  const isDevOpsTicket = await askQuestion(
+  const isDevOpsTicket = await UtilHelper.askQuestion(
     'Do you have a devOps Ticket Number? (Y/N)',
   );
 
   if (isDevOpsTicket === 'Y') {
-    ticketNo = await askQuestion('Enter the ticket number: ');
+    ticketNo = await UtilHelper.askQuestion('Enter the ticket number: ');
   }
 
   let outputSql = 'BEGIN;\n';
 
   for (const x of data) {
-    const sql = generateSQL(template, {
+    const sql = UtilHelper.generateSQL(template, {
       id: x.id,
       programAgentId: x.program_agent_id,
       distributorAgentId: x.distributor_agent_id,

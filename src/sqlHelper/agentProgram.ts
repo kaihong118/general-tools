@@ -1,7 +1,7 @@
 import { Master } from '@wallet-manager/pfh-pmp-node-def-types';
 import fs from 'fs';
 import moment from 'moment';
-import readline from 'readline';
+import UtilHelper from './utilHelper';
 
 const template = `
 -- :programName
@@ -36,47 +36,21 @@ const data = [
     vip_level: 'abcc_card',
   },
 ];
-function generateSQL(
-  template: string,
-  params: Record<string, string | number>,
-): string {
-  return template.replace(/:([a-zA-Z0-9_]+)/g, (_, key) => {
-    const val = params[key];
-    if (val === undefined) {
-      throw new Error(`Missing value for placeholder ":${key}"`);
-    }
-    return String(val);
-  });
-}
-
-function askQuestion(question: string): Promise<string> {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  return new Promise((resolve) => {
-    rl.question(question, (answer) => {
-      rl.close();
-      resolve(answer.trim());
-    });
-  });
-}
 
 async function run() {
   let ticketNo = '00000';
-  const isDevOpsTicket = await askQuestion(
+  const isDevOpsTicket = await UtilHelper.askQuestion(
     'Do you have a devOps Ticket Number? (Y/N)',
   );
 
   if (isDevOpsTicket === 'Y') {
-    ticketNo = await askQuestion('Enter the ticket number: ');
+    ticketNo = await UtilHelper.askQuestion('Enter the ticket number: ');
   }
 
   let outputSql = 'BEGIN;\n';
 
   for (const x of data) {
-    const sql = generateSQL(template, {
+    const sql = UtilHelper.generateSQL(template, {
       id: x.id,
       programAgentId: x.program_agent_id,
       programName: x.program_name,

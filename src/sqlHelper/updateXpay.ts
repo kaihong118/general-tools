@@ -1,7 +1,6 @@
-import { Master } from '@wallet-manager/pfh-pmp-node-def-types';
 import fs from 'fs';
 import moment from 'moment';
-import readline from 'readline';
+import UtilHelper from './utilHelper';
 
 const insertNewRecordTemplate = `
 insert into
@@ -88,55 +87,26 @@ const data = [
   },
 ];
 
-function generateSQL(
-  template: string,
-  params: Record<string, string | number | boolean>,
-): string {
-  return template.replace(/:([a-zA-Z0-9_]+)/g, (_, key) => {
-    const val = params[key];
-    if (val === undefined) {
-      throw new Error(`Missing value for placeholder ":${key}"`);
-    }
-    return String(val);
-  });
-}
-
-function askQuestion(question: string): Promise<string> {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  return new Promise((resolve) => {
-    rl.question(question, (answer) => {
-      rl.close();
-      resolve(answer.trim());
-    });
-  });
-}
-
 async function run() {
   let ticketNo = '00000';
-  const isDevOpsTicket = await askQuestion(
+  const isDevOpsTicket = await UtilHelper.askQuestion(
     'Do you have a devOps Ticket Number? (Y/N)',
   );
 
   if (isDevOpsTicket === 'Y') {
-    ticketNo = await askQuestion('Enter the ticket number: ');
+    ticketNo = await UtilHelper.askQuestion('Enter the ticket number: ');
   }
 
   let outputSql = 'BEGIN;\n';
 
   outputSql += `\n--Insert New Record if card profile is not exist`;
   for (const x of data) {
-    const sql = generateSQL(insertNewRecordTemplate, {
+    const sql = UtilHelper.generateSQL(insertNewRecordTemplate, {
       merchantId: x.merchant_id,
       programName: x.program_name,
       cardProfileName: x.card_profile_name,
       defaultEnableCustomerApply: false,
       defaultSupportXpay: false,
-      questionType: Master.EnumQuestionType.Agent,
-      lastModifiedBy: 'Data Patch',
     });
 
     outputSql += sql;
@@ -144,7 +114,7 @@ async function run() {
 
   outputSql += `\n--Update support_xpay to true`;
   for (const x of data) {
-    const sql = generateSQL(updateXpayTemplate, {
+    const sql = UtilHelper.generateSQL(updateXpayTemplate, {
       merchantId: x.merchant_id,
       programName: x.program_name,
       cardProfileName: x.card_profile_name,
