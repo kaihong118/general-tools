@@ -1,3 +1,4 @@
+import fs from 'fs';
 import readline from 'readline';
 
 export default class UtilHelper {
@@ -41,5 +42,19 @@ export default class UtilHelper {
         resolve(answer.trim());
       });
     });
+  }
+
+  /**
+   * Write data to a file with specified encoding.
+   * @param filePath File Path
+   * @param data File Content
+   * @param encoding BufferEncoding
+   */
+  static writeFile(
+    filePath: string,
+    data: string,
+    encoding: BufferEncoding = 'utf8',
+  ): void {
+    fs.writeFileSync(filePath, data, encoding);
   }
 }

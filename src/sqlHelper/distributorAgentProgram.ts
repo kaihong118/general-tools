@@ -1,5 +1,4 @@
 import { SwapAgent } from '@wallet-manager/pfh-pmp-node-def-types';
-import fs from 'fs';
 import moment from 'moment';
 import UtilHelper from './utilHelper';
 
@@ -61,13 +60,13 @@ async function run() {
   }
   outputSql += '\nCOMMIT;';
 
-  fs.writeFileSync(
+  UtilHelper.writeFile(
     `/Users/lucas/Downloads/SQL/[swap_agent] Data patch to update supportedPlatform (${ticketNo}) ${moment().format(
       'YYYYMMDD',
     )}.sql`,
     outputSql,
-    'utf8',
   );
+
   console.log(`✅ SQL file written`);
 }
 

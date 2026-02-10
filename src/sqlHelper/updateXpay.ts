@@ -1,4 +1,3 @@
-import fs from 'fs';
 import moment from 'moment';
 import UtilHelper from './utilHelper';
 
@@ -129,13 +128,13 @@ async function run() {
 
   outputSql += '\nCOMMIT;';
 
-  fs.writeFileSync(
+  UtilHelper.writeFile(
     `/Users/lucas/Downloads/SQL/[pmp_access] Data patch to update card profile xpay (${ticketNo}) ${moment().format(
       'YYYYMMDD',
     )}.sql`,
     outputSql,
-    'utf8',
   );
+
   console.log(`✅ SQL file written`);
 }
 
