@@ -9,7 +9,8 @@ INSERT INTO
         topic,
         event_type,
         message_type,
-        send_tg_message
+        send_tg_message,
+        send_not_verified_phone
     )
 VALUES
     (
@@ -17,7 +18,8 @@ VALUES
         ':topic',
         ':eventType',
         :messageType,
-        :sendTgMessage
+        :sendTgMessage,
+        :sendNotVerifiedPhone
     );
 `;
 
@@ -28,6 +30,7 @@ const data = [
     event_type: 'online-transaction',
     message_type: 1,
     send_tg_message: false,
+    send_not_verified_phone: false,
   },
 ];
 
@@ -41,6 +44,7 @@ async function run() {
       eventType: x.event_type,
       messageType: x.message_type,
       sendTgMessage: x.send_tg_message,
+      sendNotVerifiedPhone: x.send_not_verified_phone,
     });
 
     outputSql += sql;
